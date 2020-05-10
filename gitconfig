@@ -1,3 +1,5 @@
 [user]
 	email = git@steveharris.me
 	name = Steve Harris
+[credential]
+	helper = store

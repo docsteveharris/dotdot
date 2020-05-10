@@ -24,10 +24,19 @@ let mapleader = ","
 filetype plugin indent on	" allows auto-indenting by file type
 syntax on		" syntax highlighting
 
+" Make sure plugged is installed
+" https://github.com/junegunn/vim-plug/wiki/tips#automatic-installation
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+" Load plug ins
 call plug#begin()
 
 Plug 'jalvesaq/Nvim-R'
 Plug 'scrooloose/nerdtree'
+Plug 'vim-airline/vim-airline'
 
 call plug#end()
 
