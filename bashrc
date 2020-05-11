@@ -117,3 +117,5 @@ if ! shopt -oq posix; then
 fi
 
 # My modifications
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
