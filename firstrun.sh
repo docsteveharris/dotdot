@@ -7,7 +7,9 @@ if [[ "$OSTYPE" == "linux-gnu"* ]]; then
 	add-apt-repository ppa:martin-frost/thoughtbot-rcm
 	add-apt-repository ppa:keithw/mosh
 	apt-get update
-	apt-get install mosh rcm neovim fzf ripgrep zsh
+	apt-get install mosh rcm neovim fzf ripgrep zsh tldr \
+             libssl-dev libcurl4-openssl-dev libxml2-dev \
+             libfontconfig1-dev libcairo-dev
 	# symlinks for windows
 	# OneDrive
 	ln -s /mnt/c/Users/steve/Onedrive $HOME
