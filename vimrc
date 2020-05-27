@@ -8,6 +8,7 @@ set history=50
 set incsearch
 set relativenumber
 set cursorline
+" set cursorcolumn
 set showmatch		" show matching brackets
 set hlsearch		" highlight search results
 set tabstop=4		" tab column
@@ -21,8 +22,9 @@ syntax on		" syntax highlighting
 filetype plugin indent on	" allows auto-indenting by file type
 
 
-let mapleader = "," 
-let maplocalleader = ";" 
+let mapleader = " " 
+let maplocalleader = "," 
+
 
 " https://alex.dzyoba.com/blog/vim-revamp/
 " Peristent undo
@@ -59,6 +61,9 @@ Plug 'jreybert/vimagit'
 " R
 Plug 'jalvesaq/Nvim-R'
 
+" CursorLineCurrentWindow
+Plug 'inkarkat/vim-CursorLineCurrentWindow'
+
 " airline
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -71,14 +76,17 @@ Plug 'alok/notational-fzf-vim'
 Plug 'godlygeek/tabular'
 
 " Markdown
-" Plug 'plasticboy/vim-markdown'
-Plug 'vim-pandoc/vim-pandoc'
-Plug 'vim-pandoc/vim-pandoc-syntax'
+Plug 'plasticboy/vim-markdown'
+Plug 'reedes/vim-pencil'
+" Plug 'vim-pandoc/vim-pandoc'
+" Plug 'vim-pandoc/vim-pandoc-syntax'
 
 " Distraction free writing
 Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
 
+"
+Plug 'christoomey/vim-tmux-navigator'
 
 " Tag navigation
 Plug 'majutsushi/tagbar' " tag navigation
@@ -86,15 +94,30 @@ Plug 'jszakmeister/markdown2ctags'
 
 call plug#end()
 
+" Remap non plug in keys
+nnoremap <leader>cd :cd %:p:h<CR>:pwd<CR>
+vnoremap <leader>c "*y
+vnoremap <leader>p "*p
+
+" Remap plugin keys
+nnoremap <Leader>c :close<CR>
+nnoremap <Leader>wg :Goyo<CR>
+nnoremap <Leader>wl :Limelight!!<CR>
+" notatinal-fzf-vim
+nnoremap <silent> <c-s> :NV<CR>
+" Zoomwintab
+nnoremap <C-w>o :ZoomWinTabToggle<CR>
+" Session management
+let g:session_dir = '~/vim-sessions'
+" Session management
+exec 'nnoremap <Leader>ss :Obsession ' . g:session_dir . '/*.vim<C-D><BS><BS><BS><BS><BS>'
+exec 'nnoremap <Leader>sr :so ' . g:session_dir. '/*.vim<C-D><BS><BS><BS><BS><BS>'
+
 " Set color schemes
 set background=light
 colorscheme PaperColor
 let g:airline_theme='papercolor'
 
-" Major key remapping
-nnoremap <Leader>c :close<CR>
-nnoremap <Leader>wg :Goyo<CR>
-nnoremap <Leader>wl :Limelight!!<CR>
 
 " NerdTree
 " see vim and vinegar comments
@@ -102,23 +125,37 @@ nnoremap <Leader>wl :Limelight!!<CR>
 
 " notatinal-fzf-vim
 let g:nv_search_paths = ['~/nvalt']
-nnoremap <silent> <c-s> :NV<CR>
 
 " Pandoc
-let g:pandoc#folding#level = 0
+" let g:pandoc#folding#level = 0
 
-" Zoomwintab
-nnoremap <C-w>o :ZoomWinTabToggle<CR>
+" PlasticBoy markdown
+" disable header folding
+let g:markdown_fenced_languages = ['bash', 'python', 'R', 'sh']
+let g:vim_markdown_toc_autofit = 1
+let g:vim_markdown_folding_disabled = 1
+
+" do not use conceal feature, the implementation is not so good
+let g:vim_markdown_conceal = 0
+
+" disable math tex conceal feature
+ let g:tex_conceal = ""
+ let g:vim_markdown_math = 1
+
+" support front matter of various format
+ let g:vim_markdown_frontmatter = 1  " for YAML format
+" let g:vim_markdown_toml_frontmatter = 1  " for TOML format
+" let g:vim_markdown_json_frontmatter = 1  " for JSON format
 
 " Airline
 let g:airline_statusline_ontop=0
 let g:airline#extensions#wordcount#filetypes = '\vasciidoc|help|mail|markdown|markdown.pandoc|org|rst|tex|text|pandoc'
 set laststatus=2    " enables vim-airline.
 
-" Session management
-let g:session_dir = '~/vim-sessions'
-exec 'nnoremap <Leader>ss :Obsession ' . g:session_dir . '/*.vim<C-D><BS><BS><BS><BS><BS>'
-exec 'nnoremap <Leader>sr :so ' . g:session_dir. '/*.vim<C-D><BS><BS><BS><BS><BS>'
+" CtrlP
+"let g:ctrlp_extensions = ['tag', 'buffertag', 'quickfix', 'dir', 'rtscript',
+"                          \ 'undo', 'line', 'changes', 'mixed', 'bookmarkdir']
+let g:ctrlp_extensions = ['tag', 'buffertag', 'dir', 'line', 'bookmarkdir']
 
 " Markdown and ctags
 " https://stackoverflow.com/questions/58758810/vim-markdown-navigation-with-ctags-using-tagbar-markdown2ctags-with-vim
@@ -222,5 +259,4 @@ let g:tagbar_type_markdown = {
             \     'h6' : 'f',
             \}
             \}
-
 
