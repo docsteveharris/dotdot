@@ -119,3 +119,8 @@ fi
 # My modifications
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+# pyenv
+export PATH="/Users/steve/.pyenv/bin:$PATH"
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
