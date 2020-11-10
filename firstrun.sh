@@ -1,3 +1,6 @@
+# Steve Harris
+# Created 2020-05-27
+
 # Run this script the first time you set-up your system
 # TODO: would be more elegant to run separate scripts for each OS and just use this script to choose
 

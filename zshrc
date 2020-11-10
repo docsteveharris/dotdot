@@ -38,9 +38,23 @@ zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 # Aliases kept in separate dotfile
 source $HOME/.aliases
 
+# keybindings etc
+# https://github.com/junegunn/fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# https://dev.to/iggredible/how-to-search-faster-in-vim-with-fzf-vim-36ko
+# ripgrep and fzf
+if type rg &> /dev/null; then
+  export FZF_DEFAULT_COMMAND='rg --files'
+  # export FZF_DEFAULT_OPTS='-m'
+  export FZF_DEFAULT_OPTS='-m --height 50% --border'
+fi
+
 
 # pyenv
 export PATH="/Users/steve/.pyenv/bin:$PATH"
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
+
+# running z for local file 
+. /usr/local/etc/profile.d/z.sh
