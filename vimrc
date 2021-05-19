@@ -5,7 +5,6 @@ set nocompatible	" disable compaibility to old
 " best for prose
 set wrap
 set linebreak
-
 set ignorecase 		" case insensitive matching
 
 " as per https://github.com/neoclide/coc.nvim
@@ -29,7 +28,6 @@ set shiftwidth=4	" width for autoindents
 set autoindent		" indent a new line the same amount
 set number		    " add line numbers
 set hidden          " https://vi.stackexchange.com/questions/18940/how-to-use-fzf-buffers-files-commands-from-vim-terminal-buffer
-
 set modifiable      " https://stackoverflow.com/questions/5745506/vim-modifiable-is-off
 
 " More natural split opening
@@ -71,118 +69,54 @@ endif
 " =============
 call plug#begin()
 
-Plug 'NLKNguyen/papercolor-theme'
-
 Plug 'tpope/vim-surround' " Vim Surround
-" 2020-10-06 trying without this since you have FZF working with Rg
-" Plug 'ctrlpvim/ctrlp.vim' " CtrlP
-Plug 'troydm/zoomwintab.vim' " zoom
 Plug 'tpope/vim-obsession' " session management
-
-" Vimwiki http://vimwiki.github.io
-" Plug 'vimwiki/vimwiki'
-
-" In preference to nerdtree
-Plug 'tpope/vim-vinegar'    " Vinegar
-" Plug 'scrooloose/nerdtree'
-
-" Git
-" Plug 'jreybert/vimagit'
+Plug 'tpope/vim-vinegar'    " Vinegar in preference to nerdtree
 Plug 'tpope/vim-fugitive'
-
-Plug 'kassio/neoterm'
-" Conqueror of Completion
-" https://github.com/neoclide/coc.nvim
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-
-" R
-" 2020-07-30 needed to update the python remote async plugins after these
-" installs; see https://github.com/jacobsimpson/nvim-example-python-plugin
-" :UpdateRemotePlugins
-" Plug 'ncm2/ncm2'
-" Plug 'roxma/nvim-yarp'
-Plug 'jalvesaq/Nvim-R'
-Plug 'chrisbra/csv.vim'
-
-" Plug 'gaalcaras/ncm-R'
-" Optional: for snippet support
-" Plug 'sirver/UltiSnips'
-
-" CursorLineCurrentWindow
-Plug 'inkarkat/vim-CursorLineCurrentWindow'
-
-" airline
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+Plug 'tpope/vim-commentary'
 
 " FZF using the brew install of fzf
 " 2020-10-14 use the brew installed system fzf rather than this local one
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-" Plug '/usr/local/opt/fzf'
-" Then enable the fzf plugin
 Plug 'junegunn/fzf.vim'
-" Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'kassio/neoterm'
+" Conqueror of Completion https://github.com/neoclide/coc.nvim
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
-" notational velocity (wrapper for fzf)
-Plug 'alok/notational-fzf-vim'
-
-"
-
-" tabular plugin is used to format tables
-Plug 'godlygeek/tabular'
-
-" Markdown
+Plug 'troydm/zoomwintab.vim' " zoom
+Plug 'mg979/vim-visual-multi', {'branch': 'master'} " Multiple cursors
+Plug 'NLKNguyen/papercolor-theme'
+Plug 'inkarkat/vim-CursorLineCurrentWindow'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'godlygeek/tabular' " tabular plugin is used to format tables
 Plug 'plasticboy/vim-markdown'
 Plug 'reedes/vim-pencil'
-" Plug 'vim-pandoc/vim-pandoc'
-" Plug 'vim-pandoc/vim-pandoc-syntax'
-Plug 'itspriddle/vim-marked'
-
-" Distraction free writing
-Plug 'junegunn/goyo.vim'
-Plug 'junegunn/limelight.vim'
-
-"
 Plug 'christoomey/vim-tmux-navigator'
-
-" Tag navigation
 Plug 'majutsushi/tagbar' " tag navigation
 Plug 'jszakmeister/markdown2ctags'
-
-" Multiple cursors
-Plug 'mg979/vim-visual-multi', {'branch': 'master'}
-
-" Autosave
-Plug '907th/vim-auto-save', {'branch': 'master'}
-
-" https://github.com/lervag/vimtex
-Plug 'lervag/vimtex'
-
-" https://vimawesome.com/plugin/the-nerd-commenter
-" Plug 'preservim/nerdcommenter' "end of line comment <Leader>cA
-Plug 'tpope/vim-commentary'
-
+Plug '907th/vim-auto-save', {'branch': 'master'} " Autosave
 
 " Org mode and outlining stuff
 " https://github.com/axvr/org.vim
 Plug 'axvr/org.vim'
 
-
 call plug#end()
 " ===========
 
 " Remap non plug in keys
+" ======================
+"
 " https://vim.fandom.com/wiki/Set_working_directory_to_the_current_file
 " leader cd will move to the current directory; ?safer than autochdir
 nnoremap <leader>cd :cd %:p:h<CR>:pwd<CR>
-
+" yank and paste from the system clipboard
 vnoremap <leader>c "+y
 vnoremap <leader>p "+p
-
 " move in long lines
 nnoremap k gk
 nnoremap j gj
-
+"
 " Splits and tips
 " https://thoughtbot.com/blog/vim-splits-move-faster-and-more-naturally
 nnoremap <C-J> <C-W><C-J>
@@ -196,14 +130,9 @@ nnoremap <C-H> <C-W><C-H>
 
 " Remap plugin keys
 " =================
-
 " remove this as it clashes with vinegar -
 " https://github.com/vimwiki/vimwiki/issues/937
 nmap <Nop> <Plug>VimwikiRemoveHeaderLevel
-"
-" Open vimagit pane
-" https://jakobgm.com/posts/vim/git-integration/
-" nnoremap <leader>gs :Magit<CR>       " git status
 
 " as per https://github.com/neoclide/coc.nvim
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
@@ -229,18 +158,13 @@ else
   inoremap <silent><expr> <c-@> coc#refresh()
 endif
 
-
 " close all other buffers https://stackoverflow.com/a/42071865
 nnoremap <Leader>bda :%bd\|e#\|bd#<CR>
 nnoremap <Leader>cc :close<CR>
-nnoremap <Leader>wg :Goyo<CR>
-nnoremap <Leader>wl :Limelight!!<CR>
 "
 
-" vimtex
-let g:tex_flavor = 'latex'
-
 " Terminal mode
+" =============
 " https://neovim.io/doc/user/nvim_terminal_emulator.html
 " To map <Esc> to exit terminal-mode:
 :tnoremap <Esc> <C-\><C-n>
@@ -297,45 +221,11 @@ let g:fzf_layout = { 'window': '15new' }
 " vimwiki
 let g:vimwiki_list = [{'path': '~/notes/', 'syntax': 'markdown', 'ext': '.md'}]
 
-" nvim-R and friends
-" ==================
-let R_hl_term = 0
-" enable ncm2 for all buffers
-" autocmd BufEnter * call ncm2#enable_for_buffer()
-
-" IMPORTANT: :help Ncm2PopupOpen for more information
-" set completeopt=noinsert,menuone,noselect
-
-
-" optional vimrc tips for ncm2
-" suppress the annoying 'match x of y', 'The only match' and 'Pattern not
-" found' messages
-" set shortmess+=c
-
-" CTRL-C doesn't trigger the InsertLeave autocmd . map to <ESC> instead.
-" inoremap <c-c> <ESC>
-
-" When the <Enter> key is pressed while the popup menu is visible, it only
-" hides the menu. Use this mapping to close the menu and also start a new
-" line.
-" inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
-
-" Use <TAB> to select the popup menu:
-" inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-" inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-"
-nnoremap <S-CR> <Plug>REDSendLine
-inoremap <S-CR> <Plug>REDSendLine
-
 " FZF and Ripgrep
 " https://dev.to/haydenrou/optimizing-your-workflow-with-fzf-ripgrep-2eai
 let g:rg_derive_root='true'
 " https://dev.to/iggredible/how-to-search-faster-in-vim-with-fzf-vim-36ko
 set grepprg=rg\ --vimgrep\ --smart-case\ --hidden\ --follow
-
-" notatinal-fzf-vim
-" =================
-nnoremap <silent> <C-s> :NV<CR>
 
 " Using tabs as layouts and buffers as tabs
 " https://joshldavis.com/2014/04/05/vim-tab-madness-buffers-vs-tabs/
@@ -369,40 +259,6 @@ set background=dark
 colorscheme PaperColor
 let g:airline_theme='papercolor'
 
-" NerdTree
-" see vim and vinegar comments
-" let NERDTreeHijackNetrw=1
-
-" 2020-09-14 this is also available via iaWriter app
-" notatinal-fzf-vim
-" let g:nv_search_paths = ['~/notes', '~/iAWriter/Documents/nb-archive']
-let g:nv_search_paths = ['~/notes/']
-
-" String. Set to '' (the empty string) if you don't want an extension appended by default.
-" Don't forget the dot, unless you don't want one.
-let g:nv_default_extension = '.md'
-
-" String. Default is first directory found in `g:nv_search_paths`. Error thrown
-"if no directory found and g:nv_main_directory is not specified
-"let g:nv_main_directory = g:nv_main_directory or (first directory in g:nv_search_paths)
-
-" Dictionary with string keys and values. Must be in the form 'ctrl-KEY':
-" 'command' or 'alt-KEY' : 'command'. See examples below.
-let g:nv_keymap = {
-                    \ 'ctrl-s': 'split ',
-                    \ 'ctrl-v': 'vertical split ',
-                    \ 'ctrl-t': 'tabedit ',
-                    \ }
-
-" String. Must be in the form 'ctrl-KEY' or 'alt-KEY'
-let g:nv_create_note_key = 'ctrl-x'
-
-" String. Controls how new note window is created.
-let g:nv_create_note_window = 'vertical split'
-
-" Pandoc
-" let g:pandoc#folding#level = 0
-
 " PlasticBoy markdown
 " disable header folding
 let g:vim_markdown_folding_disabled = 0
@@ -416,8 +272,6 @@ let g:org_state_keywords = ['TODO', 'DONE', 'NOTE']
 " do not use conceal feature, the implementation is not so good
 let g:vim_markdown_conceal = 0
 
-" disable math tex conceal feature
- let g:tex_conceal = ""
  let g:vim_markdown_math = 1
 
 " support front matter of various format
@@ -429,12 +283,6 @@ let g:vim_markdown_conceal = 0
 let g:airline_statusline_ontop=0
 let g:airline#extensions#wordcount#filetypes = '\vasciidoc|help|mail|markdown|markdown.pandoc|org|rst|tex|text|pandoc'
 set laststatus=2    " enables vim-airline.
-
-" CtrlP
-"let g:ctrlp_extensions = ['tag', 'buffertag', 'quickfix', 'dir', 'rtscript',
-"                          \ 'undo', 'line', 'changes', 'mixed', 'bookmarkdir']
-" let g:ctrlp_extensions = ['tag', 'buffertag', 'dir', 'line', 'bookmarkdir']
-" let g:ctrlp_extensions = ['dir']
 
 " Marked
 let g:marked_app = "Marked"
@@ -455,60 +303,6 @@ let g:tagbar_type_pandoc = {
     \ },
     \ 'sort': 0
 \ }
-
-" Goyo and Limelight
-" ==================
-function! s:goyo_enter()
-  if executable('tmux') && strlen($TMUX)
-    " silent !tmux set status off
-    " silent !tmux list-panes -F '\#F' | grep -q Z || tmux resize-pane -Z
-  endif
-  set nospell
-  set noshowmode
-  set noshowcmd
-  set scrolloff=999
-  Limelight
-  " ...
-endfunction
-
-function! s:goyo_leave()
-  if executable('tmux') && strlen($TMUX)
-    " silent !tmux set status on
-    " silent !tmux list-panes -F '\#F' | grep -q Z && tmux resize-pane -Z
-  endif
-  set spell
-  set showmode
-  set showcmd
-  set scrolloff=5
-  Limelight!
-  " ...
-endfunction
-
-autocmd! User GoyoEnter nested call <SID>goyo_enter()
-autocmd! User GoyoLeave nested call <SID>goyo_leave()
-" Color name (:help cterm-colors) or ANSI code
-let g:limelight_conceal_ctermfg = 'gray'
-let g:limelight_conceal_ctermfg = 240
-
-" Color name (:help gui-colors) or RGB color
-let g:limelight_conceal_guifg = 'DarkGray'
-let g:limelight_conceal_guifg = '#777777'
-
-" Default: 0.5
-let g:limelight_default_coefficient = 0.7
-
-" Number of preceding/following paragraphs to include (default: 0)
-let g:limelight_paragraph_span = 1
-
-" Beginning/end of paragraph
-"   When there's no empty line between the paragraphs
-"   and each paragraph starts with indentation
-let g:limelight_bop = '^\s'
-let g:limelight_eop = '\ze\n^\s'
-
-" Highlighting priority (default: 10)
-"   Set it to -1 not to overrule hlsearch
-let g:limelight_priority = -1
 
 " https://github.com/majutsushi/tagbar
 " https://github.com/wsdjeg/mdctags.rs
