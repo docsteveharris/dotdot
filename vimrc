@@ -37,6 +37,9 @@ set modifiable      " https://stackoverflow.com/questions/5745506/vim-modifiable
 set splitbelow
 set splitright
 
+" https://neovim.io/doc/user/provider.html#clipboard
+set clipboard+=unnamedplus
+
 syntax on		" syntax highlighting
 filetype plugin indent on	" allows auto-indenting by file type
 
@@ -76,6 +79,9 @@ Plug 'tpope/vim-surround' " Vim Surround
 Plug 'troydm/zoomwintab.vim' " zoom
 Plug 'tpope/vim-obsession' " session management
 
+" Vimwiki http://vimwiki.github.io
+" Plug 'vimwiki/vimwiki'
+
 " In preference to nerdtree
 Plug 'tpope/vim-vinegar'    " Vinegar
 " Plug 'scrooloose/nerdtree'
@@ -84,6 +90,7 @@ Plug 'tpope/vim-vinegar'    " Vinegar
 " Plug 'jreybert/vimagit'
 Plug 'tpope/vim-fugitive'
 
+Plug 'kassio/neoterm'
 " Conqueror of Completion
 " https://github.com/neoclide/coc.nvim
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -155,6 +162,12 @@ Plug 'lervag/vimtex'
 " Plug 'preservim/nerdcommenter' "end of line comment <Leader>cA
 Plug 'tpope/vim-commentary'
 
+
+" Org mode and outlining stuff
+" https://github.com/axvr/org.vim
+Plug 'axvr/org.vim'
+
+
 call plug#end()
 " ===========
 
@@ -183,12 +196,18 @@ nnoremap <C-H> <C-W><C-H>
 
 " Remap plugin keys
 " =================
+
+" remove this as it clashes with vinegar -
+" https://github.com/vimwiki/vimwiki/issues/937
+nmap <Nop> <Plug>VimwikiRemoveHeaderLevel
 "
 " Open vimagit pane
 " https://jakobgm.com/posts/vim/git-integration/
 " nnoremap <leader>gs :Magit<CR>       " git status
 
 " as per https://github.com/neoclide/coc.nvim
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>"
 " Use tab for trigger completion with characters ahead and navigate.
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
 " other plugin before putting this into your config.
@@ -210,6 +229,9 @@ else
   inoremap <silent><expr> <c-@> coc#refresh()
 endif
 
+
+" close all other buffers https://stackoverflow.com/a/42071865
+nnoremap <Leader>bda :%bd\|e#\|bd#<CR>
 nnoremap <Leader>cc :close<CR>
 nnoremap <Leader>wg :Goyo<CR>
 nnoremap <Leader>wl :Limelight!!<CR>
@@ -271,6 +293,9 @@ let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
 let g:fzf_layout = { 'window': 'enew' }
 let g:fzf_layout = { 'window': '-tabnew' }
 let g:fzf_layout = { 'window': '15new' }
+
+" vimwiki
+let g:vimwiki_list = [{'path': '~/notes/', 'syntax': 'markdown', 'ext': '.md'}]
 
 " nvim-R and friends
 " ==================
@@ -350,7 +375,8 @@ let g:airline_theme='papercolor'
 
 " 2020-09-14 this is also available via iaWriter app
 " notatinal-fzf-vim
-let g:nv_search_paths = ['~/iaWriter/Notes']
+" let g:nv_search_paths = ['~/notes', '~/iAWriter/Documents/nb-archive']
+let g:nv_search_paths = ['~/notes/']
 
 " String. Set to '' (the empty string) if you don't want an extension appended by default.
 " Don't forget the dot, unless you don't want one.
@@ -379,9 +405,13 @@ let g:nv_create_note_window = 'vertical split'
 
 " PlasticBoy markdown
 " disable header folding
+let g:vim_markdown_folding_disabled = 0
 let g:markdown_fenced_languages = ['bash', 'python', 'R', 'sh']
 let g:vim_markdown_toc_autofit = 1
-let g:vim_markdown_folding_disabled = 1
+
+" org.vim
+let g:org_clean_folds = 1
+let g:org_state_keywords = ['TODO', 'DONE', 'NOTE']
 
 " do not use conceal feature, the implementation is not so good
 let g:vim_markdown_conceal = 0
