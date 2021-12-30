@@ -50,6 +50,15 @@ if type rg &> /dev/null; then
   export FZF_DEFAULT_OPTS='-m --height 50% --border'
 fi
 
+# add R to path
+export PATH="/Library/Frameworks/R.framework/Resources/bin:$PATH"
+
+# add poetry to the path
+# https://python-poetry.org/docs/master/#installation
+export PATH="/Users/steve/.local/bin:$PATH"
+
+# Sublime Text
+export PATH="/Applications/Sublime Text.app/Contents/SharedSupport/bin:$PATH"
 
 # pyenv
 export PATH="/Users/steve/.pyenv/bin:$PATH"
@@ -57,4 +66,24 @@ eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
 
 # running z for local file 
-. /usr/local/etc/profile.d/z.sh
+# . /usr/local/etc/profile.d/z.sh
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/opt/homebrew/Caskroom/miniforge/base/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/opt/homebrew/Caskroom/miniforge/base/etc/profile.d/conda.sh" ]; then
+        . "/opt/homebrew/Caskroom/miniforge/base/etc/profile.d/conda.sh"
+    else
+        export PATH="/opt/homebrew/Caskroom/miniforge/base/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+
+eval "$(starship init zsh)"
+eval "$(pyenv init -)"
+export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
+
