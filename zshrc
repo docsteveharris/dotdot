@@ -60,10 +60,8 @@ export PATH="/Users/steve/.local/bin:$PATH"
 # Sublime Text
 export PATH="/Applications/Sublime Text.app/Contents/SharedSupport/bin:$PATH"
 
-# pyenv
-export PATH="/Users/steve/.pyenv/bin:$PATH"
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
+# 2021-09-04 https://github.com/ajeetdsouza/zoxide
+eval "$(zoxide init zsh)"
 
 
 # >>> conda initialize >>>
