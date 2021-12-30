@@ -1,9 +1,3 @@
-# Set up the prompt
-
-autoload -Uz promptinit
-promptinit
-prompt adam1
-
 setopt histignorealldups sharehistory
 
 # Use emacs keybindings even if our EDITOR is set to vi
@@ -13,6 +7,9 @@ bindkey -e
 HISTSIZE=1000
 SAVEHIST=1000
 HISTFILE=~/.zsh_history
+
+# edgeDB autocompletion
+fpath+=~/.zfunc
 
 # Use modern completion system
 autoload -Uz compinit
@@ -50,6 +47,9 @@ if type rg &> /dev/null; then
   export FZF_DEFAULT_OPTS='-m --height 50% --border'
 fi
 
+# java to the path
+export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
+
 # add R to path
 export PATH="/Library/Frameworks/R.framework/Resources/bin:$PATH"
 
@@ -65,8 +65,6 @@ export PATH="/Users/steve/.pyenv/bin:$PATH"
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
 
-# running z for local file 
-# . /usr/local/etc/profile.d/z.sh
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
@@ -83,7 +81,6 @@ fi
 unset __conda_setup
 # <<< conda initialize <<<
 
+# prompt
 eval "$(starship init zsh)"
-eval "$(pyenv init -)"
-export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
 
