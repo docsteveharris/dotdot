@@ -2,3 +2,4 @@
 config/nvim/plugged/*
 config/pulse/*
 vim/*
+*.sublime-*
